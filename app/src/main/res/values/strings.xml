@@ -71,5 +71,7 @@
     <string name="title_activity_full_screen_player">FullScreenPlayerActivity</string>
     <string name="play_pause">Play/Pause</string>
     <string name="collapse">Collapse/Return to Mini Player mode</string>
+    <string name="title_activity_dictate_note">DictateNoteActivity</string>
+    <string name="title_activity_record_voice_note">RecordVoiceNoteActivity</string>
 
 </resources>

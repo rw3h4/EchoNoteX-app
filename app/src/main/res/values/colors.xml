@@ -10,6 +10,10 @@
     <color name="dark_blue">#424874</color>
 
     <!--TODO: Add Dark theme color palette-->
+    <color name="deep_navy">#283149</color>
+    <color name="steel_blue">#404B69</color>
+    <color name="teal_accent">#00818A</color>
+    <color name="soft_cyan">#DBEDF3</color>
 
     <color name="muted_blue">#7089A0</color>
     <color name="medium_grey">#8A8A8A</color>

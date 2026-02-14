@@ -84,7 +84,7 @@ public class NoteRepository {
         databaseWriteExecutor.execute(() -> noteDao.updatePinStatus(noteId, isPinned));
     }
 
-    // Might no longer be needed, saveNoteWithCategory() is used instead.
+    // No longer be needed, saveNoteWithCategory() is used instead.
     public void updateLastEdited(int noteId, long lastEdited) {
         databaseWriteExecutor.execute(() -> noteDao.updateLastEdited(noteId, lastEdited));
     }

@@ -30,15 +30,26 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.EchoNote"
         tools:targetApi="36">
-        
-        <service android:name=".service.PlaybackService"
+        <activity
+            android:name=".ui.voice.record.RecordVoiceNoteActivity"
+            android:exported="false"
+            android:label="@string/title_activity_record_voice_note"
+            android:theme="@style/Theme.EchoNote" />
+        <activity
+            android:name=".ui.voice.speech2text.DictateNoteActivity"
+            android:exported="false"
+            android:label="@string/title_activity_dictate_note"
+            android:theme="@style/Theme.EchoNote" />
+
+        <service
+            android:name=".service.PlaybackService"
             android:exported="false"
             android:foregroundServiceType="mediaPlayback">
             <intent-filter>
-                <action android:name="androidx.media3.session.MediaSessionService"/>
+                <action android:name="androidx.media3.session.MediaSessionService" />
             </intent-filter>
-
         </service>
+
         <activity
             android:name=".ui.auth.LauncherActivity"
             android:exported="true">
@@ -48,9 +59,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".ui.voice.record.RecordVoiceNoteActivity"
-            android:exported="false" />
         <activity
             android:name=".ui.note.ReadNoteActivity"
             android:exported="false" />
@@ -79,8 +87,7 @@
             android:exported="false" />
         <activity
             android:name=".ui.auth.LoginActivity"
-            android:exported="false">
-        </activity>
+            android:exported="false" />
     </application>
 
 </manifest>

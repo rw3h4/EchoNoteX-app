@@ -84,11 +84,14 @@ dependencies {
     debugImplementation(libs.androidx.ui.test.manifest)
 
     //Firebase
-    implementation(platform("com.google.firebase:firebase-bom:33.15.0"))
-    implementation("com.google.firebase:firebase-auth")
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.auth)
+
+    // Firestore
+    implementation(libs.firebase.firestore)
 
     //Splash screen API
-    implementation("androidx.core:core-splashscreen:1.0.1")
+    implementation(libs.androidx.core.splashscreen)
 
     //Credential Manager
     implementation(libs.androidx.credentials)
@@ -116,7 +119,7 @@ dependencies {
     implementation(libs.jsoup)
 
     // Material Icons Extended
-    implementation("androidx.compose.material:material-icons-extended")
+    implementation(  libs.androidx.compose.material.icons.extended)
 
     // Media3 + ExoPlayer
     implementation(libs.androidx.media3.exoplayer)
@@ -127,12 +130,9 @@ dependencies {
     implementation(libs.androidx.ui.viewbinding)
 
     // Coil
+    implementation("io.coil-kt.coil3:coil:3.2.0")
     implementation("io.coil-kt.coil3:coil-compose:3.2.0")
     implementation("io.coil-kt.coil3:coil-network-okhttp:3.2.0")
-
-    // Glide
-    implementation("com.github.bumptech.glide:glide:4.16.0")
-    kapt("com.github.bumptech.glide:compiler:4.16.0")
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)

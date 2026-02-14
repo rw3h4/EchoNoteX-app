@@ -18,7 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import org.rw3h4.echonotex.R;
 import org.rw3h4.echonotex.data.local.model.Note;
 import org.rw3h4.echonotex.data.local.model.NoteWithCategory;
-import org.rw3h4.echonotex.util.note.GlideImageGetter;
+import org.rw3h4.echonotex.util.note.CoilImageGetter;
 
 import java.util.Date;
 import java.util.Locale;
@@ -116,7 +116,7 @@ public class NoteAdapter extends ListAdapter<NoteWithCategory, RecyclerView.View
             categoryTextView.setText(item.getCategoryName());
             pinIcon.setActivated(note.isPinned());
 
-            GlideImageGetter imageGetter = new GlideImageGetter(itemView.getContext(), contentTextView);
+            CoilImageGetter imageGetter = new CoilImageGetter(itemView.getContext(), contentTextView);
             if (note.getContent() != null) {
                 CharSequence spannedText = Html.fromHtml(note.getContent(),
                         Html.FROM_HTML_MODE_COMPACT, imageGetter, null);

@@ -57,7 +57,7 @@ public class LoginActivity extends BaseActivity {
         if (currentUser != null && currentUser.isAnonymous()) {
             // Handle upgrading guest user to Google
             googleSignInHelper.linkAnonymousAccountToGoogle(
-                    this, getString(R.string.web_client_id), () ->
+                    getString(R.string.web_client_id), () ->
                             AuthUtils.showToast(this, "Account linked successfully"));
         } else {
             googleSignInHelper.startGoogleSignIn(

@@ -61,10 +61,13 @@ class AddEditNoteActivity : AppCompatActivity() {
             intent.getParcelableExtra("note_to_edit")
         }
 
+        val transcribedText = intent.getStringExtra("transcribed_text")
+
         setContent {
             AddEditNoteScreen(
                 viewModel = addEditNoteViewModel,
                 existingNote = existingNote,
+                initialContent = transcribedText,
                 onSave = { title, content, category ->
                     val user = FirebaseAuth.getInstance().currentUser
                     if (user != null) {

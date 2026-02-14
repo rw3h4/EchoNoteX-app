@@ -1,4 +1,4 @@
-package org.rw3h4.echonote.ui.note
+package org.rw3h4.echonotex.ui.note
 
 import androidx.compose.ui.text.input.TextFieldValue
 import org.jsoup.Jsoup

@@ -1,5 +1,6 @@
 package org.rw3h4.echonotex.ui.note;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -13,9 +14,10 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
@@ -29,7 +31,9 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
-import com.bumptech.glide.Glide;
+import coil3.ImageLoader;
+import coil3.request.ImageRequest;
+import coil3.target.ImageViewTarget;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -44,6 +48,7 @@ import org.rw3h4.echonotex.databinding.MiniPlayerBinding;
 import org.rw3h4.echonotex.ui.auth.LoginActivity;
 
 import org.rw3h4.echonotex.ui.voice.record.RecordVoiceNoteActivity;
+import org.rw3h4.echonotex.ui.voice.speech2text.DictateNoteActivity;
 import org.rw3h4.echonotex.viewmodel.MediaPlayerViewModel;
 import org.rw3h4.echonotex.viewmodel.NotesViewModel;
 import org.rw3h4.echonotex.ui.voice.VoiceOptionsBottomSheetFragment;
@@ -58,7 +63,6 @@ import java.util.concurrent.TimeUnit;
 
 public class NotesActivity extends AppCompatActivity implements VoiceOptionsBottomSheetFragment.VoiceOptionsListener {
 
-    // Use the binding object to access all views
     private ActivityNotesBinding binding;
     private MiniPlayerBinding miniPlayerBinding;
 
@@ -68,6 +72,20 @@ public class NotesActivity extends AppCompatActivity implements VoiceOptionsBott
 
     private LiveData<List<Note>> searchResultsLiveData;
     private Observer<List<Note>> searchObserver;
+
+    private final ActivityResultLauncher<Intent> dictateNoteLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            result -> {
+                if (result.getResultCode() == Activity.RESULT_OK && result.getData() !=  null) {
+                    String transcribedText = result.getData().getStringExtra("transcribed_text");
+                    if (transcribedText != null) {
+                        Intent intent = new Intent(NotesActivity.this, AddEditNoteActivity.class);
+                        intent.putExtra("transcribed_text", transcribedText);
+                        startActivity(intent);
+                    }
+                }
+            }
+    );
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -251,8 +269,15 @@ public class NotesActivity extends AppCompatActivity implements VoiceOptionsBott
                 headerUserEmail.setText(email);
                 headerUserEmail.setVisibility(View.VISIBLE);
                 if (photoUrl != null) {
-                    Glide.with(this).load(photoUrl).into(binding.userAvatarImageView);
-                    Glide.with(this).load(photoUrl).into(navHeaderAvatar);
+                    ImageLoader imageLoader = new ImageLoader.Builder(this).build();
+                    imageLoader.enqueue(new ImageRequest.Builder(this)
+                            .data(photoUrl)
+                            .target(new ImageViewTarget(binding.userAvatarImageView))
+                            .build());
+                    imageLoader.enqueue(new ImageRequest.Builder(this)
+                            .data(photoUrl)
+                            .target(new ImageViewTarget(navHeaderAvatar))
+                            .build());
                 }
                 navMenu.findItem(R.id.nav_login).setVisible(false);
                 navMenu.findItem(R.id.nav_logout).setVisible(true);
@@ -429,6 +454,7 @@ public class NotesActivity extends AppCompatActivity implements VoiceOptionsBott
 
     @Override
     public void onDictateNoteClicked() {
-        Toast.makeText(this, "Dictate Note selected", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(this, DictateNoteActivity.class);
+        dictateNoteLauncher.launch(intent);
     }
 }
