@@ -39,7 +39,6 @@ import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.contentColorFor
-import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -59,8 +58,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import org.rw3h4.echonotex.ui.note.AddEditNoteScreen
-import org.rw3h4.echonotex.ui.note.CategorySelectionBottomSheet
 import org.rw3h4.echonotex.ui.theme.DarkBlue
 import org.rw3h4.echonotex.ui.theme.LightBlue
 import org.rw3h4.echonotex.ui.theme.LightPurple
@@ -80,7 +77,6 @@ fun RecordVoiceNoteScreen(
     val uiState by viewModel.uiState.collectAsState()
     val categories by viewModel.allCategories.observeAsState(initial = emptyList())
 
-    val bottomSheetState = rememberModalBottomSheetState()
     var showCategoryBottomSheet by remember { mutableStateOf(false) }
 
     LaunchedEffect(uiState.saveFinished) {

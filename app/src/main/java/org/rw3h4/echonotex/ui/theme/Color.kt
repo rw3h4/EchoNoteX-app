@@ -17,6 +17,14 @@ val LightPurple = Color(0xFFDCD6F7)
 val LightBlue = Color(0xFFA6B1E1)
 val DarkBlue = Color(0xFF424874)
 
+// --- AI Create Semantic Tokens ---
+val CardWhite     = Color(0xFFFFFFFF)
+val TextPrimary   = Color(0xFF2E3157)
+val TextSecondary = Color(0xFF6B6E99)
+val TextDim       = Color(0xFFA0A3C4)
+val BorderSubtle  = Color(0x1F424874)
+val BorderMed     = Color(0x33424874)
+
 // --- Dark Theme Color Palette ---
 val DeepNavy   = Color(0xFF283149)
 val SteelBlue  = Color(0xFF404B69)

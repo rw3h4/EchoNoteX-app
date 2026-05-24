@@ -126,7 +126,7 @@
             android:paddingStart="8dp"
             android:paddingEnd="8dp"
             android:paddingTop="8dp"
-            android:paddingBottom="8dp"
+            android:paddingBottom="100dp"
             app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
             app:layout_constraintTop_toBottomOf="@id/category_tabs"
             app:layout_constraintStart_toStartOf="parent"
@@ -143,79 +143,77 @@
             android:textColor="@color/black"
             android:textSize="16sp"
             android:visibility="gone"
-            app:layout_constraintBottom_toTopOf="@+id/bottom_navbar_cardView"
+            app:layout_constraintBottom_toTopOf="@+id/bottom_navbar_container"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/category_tabs" />
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/bottom_navbar_cardView"
-            android:layout_width="250dp"
-            android:layout_height="60dp"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/bottom_navbar_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="24dp"
+            android:paddingVertical="8dp"
             android:layout_marginBottom="16dp"
-            android:foreground="?attr/selectableItemBackgroundBorderless"
-            app:cardBackgroundColor="@color/dark_blue"
-            app:cardCornerRadius="40dp"
-            app:cardElevation="8dp"
+            app:layout_constraintBottom_toTopOf="@id/mini_player_layout_container"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/mini_player_layout_container">
+            app:layout_constraintEnd_toEndOf="parent">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+            <!-- Mic button -->
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/voice_recordButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/navigation_bar_home_button"
+                app:backgroundTint="@color/dark_blue"
+                app:tint="@color/white"
+                app:srcCompat="@drawable/ic_mic"
+                app:maxImageSize="28dp"
+                app:fabSize="normal"
+                app:elevation="6dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/addNoteBtn"
+                app:layout_constraintHorizontal_chainStyle="spread_inside" />
 
-                <ImageView
-                    android:id="@+id/voice_recordButton"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:src="@drawable/ic_mic"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:foreground="?attr/selectableItemBackgroundBorderless"
-                    app:tint="@color/light_blue"
-                    android:layout_marginStart="10dp"
-                    android:contentDescription="@string/navigation_bar_home_button"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/addNoteBtn"
-                    app:layout_constraintHorizontal_chainStyle="spread_inside" />
+            <!-- Primary add button (larger, with ring accent) -->
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/addNoteBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/navbar_add_note_button"
+                app:fabCustomSize="72dp"
+                app:backgroundTint="@color/dark_blue"
+                app:tint="@color/white"
+                app:srcCompat="@drawable/ic_add_simple"
+                app:maxImageSize="32dp"
+                app:strokeColor="@color/light_purple"
+                app:strokeWidth="6dp"
+                app:elevation="8dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/voice_recordButton"
+                app:layout_constraintEnd_toStartOf="@id/text_genButton" />
 
-                <ImageView
-                    android:id="@+id/addNoteBtn"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:src="@drawable/add_circle"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:foreground="?attr/selectableItemBackgroundBorderless"
-                    app:tint="@color/light_blue"
-                    android:contentDescription="@string/navbar_add_note_button"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/voice_recordButton"
-                    app:layout_constraintEnd_toStartOf="@id/text_genButton" />
+            <!-- Sparkle / AI button -->
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/text_genButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/generate_text"
+                app:backgroundTint="@color/dark_blue"
+                app:tint="@color/white"
+                app:srcCompat="@drawable/ic_sparkle"
+                app:maxImageSize="28dp"
+                app:fabSize="normal"
+                app:elevation="6dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/addNoteBtn"
+                app:layout_constraintEnd_toEndOf="parent" />
 
-                <ImageView
-                    android:id="@+id/text_genButton"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:src="@drawable/ic_sparkle"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:foreground="?attr/selectableItemBackgroundBorderless"
-                    app:tint="@color/light_blue"
-                    android:layout_marginEnd="10dp"
-                    android:contentDescription="@string/generate_text"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/addNoteBtn"
-                    app:layout_constraintEnd_toEndOf="parent" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-        </androidx.cardview.widget.CardView>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <include
             android:id="@+id/mini_player_layout_container"

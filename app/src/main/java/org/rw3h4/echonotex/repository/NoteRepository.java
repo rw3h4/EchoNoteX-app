@@ -32,7 +32,7 @@ public class NoteRepository {
     }
 
     public LiveData<List<Note>> searchNotes(String userId, String query) {
-        return noteDao.searchNotes(userId, query);
+        return noteDao.searchNotes(userId, "%" + query + "%");
     }
 
     public LiveData<List<Note>> getNotesByCategoryId(String userId, int categoryId) {

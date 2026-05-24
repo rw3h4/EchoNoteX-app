@@ -118,6 +118,11 @@ public class NotesActivity extends AppCompatActivity implements VoiceOptionsBott
             startActivity(intent);
         });
 
+        binding.textGenButton.setOnClickListener(v -> {
+            Intent intent = new Intent(NotesActivity.this, org.rw3h4.echonotex.ui.textgen.AICreateActivity.class);
+            startActivity(intent);
+        });
+
         binding.voiceRecordButton.setOnClickListener(v -> {
             VoiceOptionsBottomSheetFragment bottomSheet = VoiceOptionsBottomSheetFragment.newInstance();
             bottomSheet.show(getSupportFragmentManager(), bottomSheet.getTag());

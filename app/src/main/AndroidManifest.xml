@@ -88,6 +88,12 @@
         <activity
             android:name=".ui.auth.LoginActivity"
             android:exported="false" />
+        <activity
+            android:name=".ui.textgen.AICreateActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.EchoNote"
+            android:windowSoftInputMode="adjustResize" />
     </application>
 
 </manifest>
