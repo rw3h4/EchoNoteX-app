@@ -2,23 +2,21 @@ plugins {
     alias(libs.plugins.android.library)
 }
 
-android {
+configure<com.android.build.api.dsl.LibraryExtension> {
     namespace = "org.rw3h4.echonotex.llm"
-    compileSdk {
-        version = release(36)
-    }
+    compileSdk = 36
 
     defaultConfig {
         minSdk = 24
 
         ndk {
             //noinspection ChromeOsAbiSupport
-            abiFilters += "arm64-v8a"
+            abiFilters.add("arm64-v8a")
         }
 
         externalNativeBuild {
             cmake {
-                cppFlags += "-std=c++17"
+                cppFlags.add("-std=c++17")
             }
         }
 
@@ -37,7 +35,6 @@ android {
             useLegacyPackaging = false
         }
     }
-
 }
 
 dependencies {
