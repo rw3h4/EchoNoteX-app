@@ -90,18 +90,11 @@ static bool ensure_context(EchoLlmHandle* h, int32_t required_ctx) {
 
 void echollm_free(EchoLlmHandle* h) {
     if (!h) return;
-
-    std::lock_guard<std::mutex> lock(h->mtx);
-
-    if (h->ctx) {
-        llama_free(h->ctx);
-        h->ctx = nullptr;
-    }
-
-    if (h->model) {
-        llama_model_free(h->model);
-        h->model = nullptr;
-    }
+    {
+        std::lock_guard<std::mutex> lock(h->mtx);
+        if (h->ctx) { llama_free(h->ctx); h->ctx = nullptr; }
+        if (h->model) { llama_model_free(h->model); h->model = nullptr; }
+    }   // lock release here, before delete
     delete h;
 }
 
