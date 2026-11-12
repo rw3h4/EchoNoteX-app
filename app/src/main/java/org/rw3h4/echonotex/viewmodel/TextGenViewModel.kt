@@ -32,8 +32,13 @@ class TextGenViewModel(application: Application) : AndroidViewModel(application)
     private fun loadModel() {
         viewModelScope.launch {
             try {
-                // TODO: Placeholder. To be removed as app is refined.
+                // TODO: Placeholder. To be removed as app is refined (Phase 5).
                 // In a real app, this path should be configurable or the model should be downloaded.
+                // Phase 3 built the download pipeline; the intended source for the
+                // resolved model file is now InstalledModelStore
+                // (org.rw3h4.echonotex.service.textgen.download.InstalledModelStore):
+                // Phase 5 will query it by model id to obtain the verified file path
+                // instead of this hardcoded File(filesDir, "model.gguf").
                 val modelFile = File(getApplication<Application>().filesDir, "model.gguf")
                 
                 if (!modelFile.exists()) {

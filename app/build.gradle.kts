@@ -1,4 +1,5 @@
 import java.util.Properties
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 val localProperties = Properties()
 val localPropertiesFile = rootProject.file("local.properties")
@@ -12,10 +13,11 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.compose.compiler)
     alias(libs.plugins.kotlin.kapt)
+    alias(libs.plugins.kotlin.serialization)
     id("com.google.gms.google-services")
 }
 
-android {
+configure<com.android.build.api.dsl.ApplicationExtension> {
     namespace = "org.rw3h4.echonotex"
     compileSdk = 36
 
@@ -27,9 +29,7 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        vectorDrawables {
-            useSupportLibrary = true
-        }
+        vectorDrawables.useSupportLibrary = true
 
         // Read the property and create a string resource
         val webClientId = localProperties.getProperty("WEB_CLIENT_ID")
@@ -50,17 +50,20 @@ android {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
-    kotlinOptions {
-        jvmTarget = "11"
-    }
     buildFeatures {
         viewBinding = true
         compose = true
     }
     packaging {
         resources {
-            excludes += "/META-INF/{AL2.0,LGPL2.1}"
+            excludes.add("/META-INF/{AL2.0,LGPL2.1}")
         }
+    }
+}
+
+tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
+    compilerOptions {
+        jvmTarget.set(JvmTarget.JVM_11)
     }
 }
 
@@ -118,6 +121,9 @@ dependencies {
     // JSoup
     implementation(libs.jsoup)
 
+    // Kotlinx Serialization (JSON)
+    implementation(libs.kotlinx.serialization.json)
+
     // Material Icons Extended
     implementation(  libs.androidx.compose.material.icons.extended)
 
@@ -137,7 +143,16 @@ dependencies {
     //llm
     implementation(project(":llm"))
 
+    // WorkManager (background model downloads)
+    implementation(libs.androidx.work.runtime.ktx)
+
+    // DataStore Preferences (installed-model registry + download settings)
+    implementation(libs.androidx.datastore.preferences)
+
     testImplementation(libs.junit)
+    testImplementation(libs.kotlinx.coroutines.test)
+    // DataStore Preferences factory for JVM unit tests (temp-file backed)
+    testImplementation(libs.androidx.datastore.preferences.core)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
     androidTestImplementation(platform(libs.androidx.compose.bom))
